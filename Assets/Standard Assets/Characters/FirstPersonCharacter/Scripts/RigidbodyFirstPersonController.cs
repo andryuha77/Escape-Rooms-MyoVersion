@@ -117,6 +117,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private bool m_Jump, m_PreviouslyGrounded, m_Jumping, m_IsGrounded;
 		private int moveLeftRight;
 		private int moveFrontBack;
+		private double myoUp;
+		private double myoLeft;
+
 
         public Vector3 Velocity
         {
@@ -301,42 +304,43 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
 	//		int moveHorizontal = 0;
 	//		Debug.Log(myo.transform.up.z);
+			myoLeft = myo.transform.right.y;
+			myoUp = myo.transform.up.z;
 
 			// Horisontal control left/right
-			if (myo.transform.right.y < 0.15 && myo.transform.right.y > -0.15 ) {
+			if (myoLeft <= 0.15 && myoLeft >= -0.15 ) {
 				moveLeftRight = 0;
 				//			Debug.Log(moveLeftRight);
 			}
-			if (myo.transform.right.y > 0.15 ) {
+			if (myoLeft >= 0.15 ) {
 				moveLeftRight = -1;
 				//			Debug.Log(moveLeftRight);
 			}
 
-			if(myo.transform.right.y < -0.15 ) {
+			if(myoLeft <= -0.15 ) {
 				moveLeftRight = 1;
 				//			Debug.Log(moveLeftRight);
 			}
 
-
+			Debug.Log (myoUp);
 			// Horisontal control front/back
-			if (myo.transform.up.z < 0.2 && myo.transform.up.z > -0.2) {
+			if (myoUp <= 0.15 && myoUp >= -0.15) {
 				moveFrontBack = 0;
 //				Debug.Log(moveFrontBack);
 			}
 
-			if (myo.transform.up.z > 0.2 ) {
-				moveFrontBack = -1;
-//				Debug.Log(moveFrontBack);
-			}
-
-			if(myo.transform.up.z < -0.2 ) {
+			if (myoUp >= 0.15 ) {
 				moveFrontBack = 1;
 //				Debug.Log(moveFrontBack);
 			}
 
+			if(myoUp <= -0.15 ) {
+				moveFrontBack = -1;
+//				Debug.Log(moveFrontBack);
+			}
 
 			Vector2 input = new Vector3 (moveLeftRight, moveFrontBack);
-			Vector2 input2 = GetInput ();
+//			Vector2 input2 = GetInput ();
 			//Vector2 input = new Vector3 (myo.transform.right.x, myo.transform.up.z);
 			movementSettings.UpdateDesiredTargetSpeed(input);
 
@@ -357,24 +361,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     m_RigidBody.AddForce(desiredMove*SlopeMultiplier(), ForceMode.Impulse);
                 }
             }
-
-			if ((Mathf.Abs(input2.x) > float.Epsilon || Mathf.Abs(input2.y) > float.Epsilon) && (advancedSettings.airControl || m_IsGrounded))
-			{
-				// always move along the camera forward as it is the direction that it being aimed at
-				Vector3 desiredMove = cam.transform.forward*input2.y + cam.transform.right*input2.x;
-				desiredMove = Vector3.ProjectOnPlane(desiredMove, m_GroundContactNormal).normalized;
-
-				desiredMove.x = desiredMove.x*movementSettings.CurrentTargetSpeed;
-				desiredMove.z = desiredMove.z*movementSettings.CurrentTargetSpeed;
-				desiredMove.y = desiredMove.y*movementSettings.CurrentTargetSpeed;
-
-
-				if (m_RigidBody.velocity.sqrMagnitude <
-					(movementSettings.CurrentTargetSpeed*movementSettings.CurrentTargetSpeed))
-				{
-					m_RigidBody.AddForce(desiredMove*SlopeMultiplier(), ForceMode.Impulse);
-				}
-			}
+				
             if (m_IsGrounded)
             {
                 m_RigidBody.drag = 5f;
