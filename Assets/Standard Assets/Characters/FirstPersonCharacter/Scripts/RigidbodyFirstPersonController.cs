@@ -115,7 +115,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private float m_YRotation;
         private Vector3 m_GroundContactNormal;
         private bool m_Jump, m_PreviouslyGrounded, m_Jumping, m_IsGrounded;
-
+		private int moveHorizontal;
 
         public Vector3 Velocity
         {
@@ -298,7 +298,27 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             GroundCheck();
 
-			Vector2 input = new Vector3 (myo.transform.right.x, 0);
+	//		int moveHorizontal = 0;
+			Debug.Log(myo.transform.right.y);
+
+
+			if (myo.transform.right.y < 0.2 && myo.transform.right.y > -0.2 ) {
+				moveHorizontal = 0;
+	//			Debug.Log(moveHorizontal);
+			}
+			else if (myo.transform.right.y > 0.2 ) {
+				moveHorizontal = -1;
+	//			Debug.Log(moveHorizontal);
+			}
+
+			else if(myo.transform.right.y < -0.2 ) {
+				moveHorizontal = 1;
+	//			Debug.Log(myo.transform.right.y);
+			}
+
+
+
+			Vector2 input = new Vector3 (moveHorizontal, 0);
 			Vector2 input2 = GetInput ();
 			//Vector2 input = new Vector3 (myo.transform.right.x, myo.transform.up.z);
 			movementSettings.UpdateDesiredTargetSpeed(input);
