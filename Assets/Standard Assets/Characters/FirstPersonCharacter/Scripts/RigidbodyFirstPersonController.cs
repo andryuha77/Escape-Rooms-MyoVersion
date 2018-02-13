@@ -115,7 +115,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private float m_YRotation;
         private Vector3 m_GroundContactNormal;
         private bool m_Jump, m_PreviouslyGrounded, m_Jumping, m_IsGrounded;
-		private int moveHorizontal;
+		private int moveLeftRight;
+		private int moveFrontBack;
 
         public Vector3 Velocity
         {
@@ -299,26 +300,42 @@ namespace UnityStandardAssets.Characters.FirstPerson
             GroundCheck();
 
 	//		int moveHorizontal = 0;
-			Debug.Log(myo.transform.right.y);
+	//		Debug.Log(myo.transform.up.z);
 
-
-			if (myo.transform.right.y < 0.2 && myo.transform.right.y > -0.2 ) {
-				moveHorizontal = 0;
-	//			Debug.Log(moveHorizontal);
+			// Horisontal control left/right
+			if (myo.transform.right.y < 0.15 && myo.transform.right.y > -0.15 ) {
+				moveLeftRight = 0;
+				//			Debug.Log(moveLeftRight);
 			}
-			else if (myo.transform.right.y > 0.2 ) {
-				moveHorizontal = -1;
-	//			Debug.Log(moveHorizontal);
-			}
-
-			else if(myo.transform.right.y < -0.2 ) {
-				moveHorizontal = 1;
-	//			Debug.Log(myo.transform.right.y);
+			if (myo.transform.right.y > 0.15 ) {
+				moveLeftRight = -1;
+				//			Debug.Log(moveLeftRight);
 			}
 
+			if(myo.transform.right.y < -0.15 ) {
+				moveLeftRight = 1;
+				//			Debug.Log(moveLeftRight);
+			}
 
 
-			Vector2 input = new Vector3 (moveHorizontal, 0);
+			// Horisontal control front/back
+			if (myo.transform.up.z < 0.2 && myo.transform.up.z > -0.2) {
+				moveFrontBack = 0;
+//				Debug.Log(moveFrontBack);
+			}
+
+			if (myo.transform.up.z > 0.2 ) {
+				moveFrontBack = -1;
+//				Debug.Log(moveFrontBack);
+			}
+
+			if(myo.transform.up.z < -0.2 ) {
+				moveFrontBack = 1;
+//				Debug.Log(moveFrontBack);
+			}
+
+
+			Vector2 input = new Vector3 (moveLeftRight, moveFrontBack);
 			Vector2 input2 = GetInput ();
 			//Vector2 input = new Vector3 (myo.transform.right.x, myo.transform.up.z);
 			movementSettings.UpdateDesiredTargetSpeed(input);
