@@ -2,6 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using LockingPolicy = Thalmic.Myo.LockingPolicy;
+using Pose = Thalmic.Myo.Pose;
+using UnlockType = Thalmic.Myo.UnlockType;
+using VibrationType = Thalmic.Myo.VibrationType;
+using System;
+using UnityEngine.SceneManagement;
+using System.Globalization;
+
 public class Lever : MonoBehaviour {
 
 public bool inTrigger = false;
@@ -11,7 +19,7 @@ public bool arrows;
 public ArrowTrap arrowTrap;
 public bool trap;
 public OpenTrapDoors openTrap;
-
+public GameObject myo = null;
 
 	void Start ()
 	{
@@ -40,8 +48,10 @@ public OpenTrapDoors openTrap;
 	// Update is called once per frame
 	void Update ()
 	{
+		// Access the ThalmicMyo component attached to the Myo object.
+		ThalmicMyo thalmicMyo = myo.GetComponent<ThalmicMyo> ();
 		if (inTrigger) {
-			if (Input.GetKeyDown (KeyCode.E)) {
+			if ((Input.GetKeyDown (KeyCode.E))||(thalmicMyo.pose == Pose.DoubleTap)) {
 				leverAnim.SetTrigger ("throw");
 				if (aMultiLever) {
 					GameManager.instance.AddLever (gameObject);
