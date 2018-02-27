@@ -168,7 +168,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
 			////////////////////////////////////////////////
 			// Access the ThalmicMyo component attached to the Myo object.
-			ThalmicMyo thalmicMyo = myo.GetComponent<ThalmicMyo> ();
+//			myo = null;
+	//		ThalmicMyo thalmicMyo = myo.GetComponent<ThalmicMyo> ();
 
 			// Update references when the pose becomes fingers spread or the q key is pressed.
 /*			bool updateReference = false;
