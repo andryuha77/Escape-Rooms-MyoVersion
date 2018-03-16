@@ -44,14 +44,13 @@ public GameObject myo = null;
 		arrowTrap.FireArrows();
 	}
 
-
 	// Update is called once per frame
 	void Update ()
 	{
-		// Access the ThalmicMyo component attached to the Myo object.
-		ThalmicMyo thalmicMyo = myo.GetComponent<ThalmicMyo> ();
 		if (inTrigger) {
-			if ((Input.GetKeyDown (KeyCode.E))||(thalmicMyo.pose == Pose.DoubleTap)) {
+			// Access the ThalmicMyo component attached to the Myo object.
+			ThalmicMyo thalmicMyo = myo.GetComponent<ThalmicMyo> ();
+			if (Input.GetKeyDown (KeyCode.E)||thalmicMyo.pose == Pose.DoubleTap) {
 				leverAnim.SetTrigger ("throw");
 				if (aMultiLever) {
 					GameManager.instance.AddLever (gameObject);

@@ -8,8 +8,9 @@ public string loadLevel;
 
 	void OnTriggerEnter (Collider other)
 	{
-		Destroy(gameObject);
+//		Destroy(gameObject);
 //		Destroy(ThalmicMyo);
+//		Destroy(ThalmicHub);
 		if (other.tag == "Player") {
 			SceneManager.LoadScene (loadLevel);
 		}
