@@ -41,6 +41,12 @@ The game contains 5 main parts:
 5. Final menu with the ability to store retrieve players list from Azure simple table database:
 
 ![](https://i.imgur.com/LJO9MXB.png)
+
+# Video Demo<a name = "demo"></a>
+
+## Quick 2 Minute Video
+<kbd>[![IMAGE ALT TEXT HERE](https://image.ibb.co/jLv6Mx/MyoVideo.png)](https://youtu.be/0z4STHLcCFY)</kbd>
+
 ## How to run
 
 1. Download [RunEscapeRoomGame.7z](https://drive.google.com/file/d/11WEoYJ6ik2Fi4emEQUw1gm3jZSJ8_mZn/view?usp=sharing) folder from my google drive.
